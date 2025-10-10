@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/app_drawer.dart';
 import 'item_detail_screen.dart';
-// Assuming PlaceholderImage and ItemCard are defined in a file named 'widgets.dart'
-// or defined below if they are small. For this example, I'll define them here.
-
-// *******************************************************************
-// Helper Widgets (PlaceholderImage and ItemCard - Define these
-// only if they were not in a separate 'widgets.dart' file)
-// *******************************************************************
 
 class PlaceholderImage extends StatelessWidget {
   final String imageUrl;
@@ -25,7 +18,6 @@ class PlaceholderImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // In a real app, use Image.network(imageUrl, ...) with a loading builder
     return Image.network(
       imageUrl,
       height: height,
@@ -128,11 +120,6 @@ class CategoryChip extends StatelessWidget {
   }
 }
 
-// *******************************************************************
-// Main HomeScreen Widget
-// *******************************************************************
-
-// Define the sample data for all the items
 final List<Map<String, dynamic>> topPicks = const [
   {
     'title': 'Chickpea Soup',
@@ -185,10 +172,8 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // --- Header Section (Image/Text) ---
             Stack(
               children: [
-                // Background Image
                 const PlaceholderImage(
                   imageUrl:
                       'https://images.unsplash.com/photo-1551024709-8f23befc6f87',
@@ -196,7 +181,7 @@ class HomeScreen extends StatelessWidget {
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
-                // Overlay Gradient and Text
+
                 Container(
                   height: 250,
                   width: double.infinity,
@@ -211,7 +196,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // Text overlay
+
                 Positioned(
                   bottom: 50,
                   left: 20,
@@ -237,7 +222,6 @@ class HomeScreen extends StatelessWidget {
               ],
             ),
 
-            // --- Top Picks Section ---
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
@@ -252,8 +236,6 @@ class HomeScreen extends StatelessWidget {
                     style: TextStyle(color: Colors.grey),
                   ),
                   const SizedBox(height: 15),
-
-                  // Horizontal list of Item Cards (FIXED NAVIGATION HERE)
                   SizedBox(
                     height: 230,
                     child: ListView.builder(
@@ -268,7 +250,6 @@ class HomeScreen extends StatelessWidget {
                             category: item['category'] as String,
                             imageUrl: item['imageUrl'] as String,
                             onTap: () {
-                              // CORRECT: Navigate and pass the item object
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
@@ -283,14 +264,12 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // --- Food Types Section ---
                   const SizedBox(height: 20),
                   const Text(
                     'Food types',
                     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 15),
-                  // Placeholder for Food Types Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: const [
@@ -300,7 +279,7 @@ class HomeScreen extends StatelessWidget {
                       CategoryChip(label: 'Desserts'),
                     ],
                   ),
-                  const SizedBox(height: 50), // End padding
+                  const SizedBox(height: 50),
                 ],
               ),
             ),

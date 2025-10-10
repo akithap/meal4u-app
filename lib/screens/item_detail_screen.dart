@@ -1,11 +1,8 @@
-// item_detail_screen.dart
-
 import 'package:flutter/material.dart';
-// Assuming other imports are here (widgets.dart, cart_page.dart)
+
 import 'cart_page.dart';
 import '../widgets/itemcard.dart';
 import '../widgets/size_buttons.dart';
-// Assuming PlaceholderImage, SizeButton, etc. are defined
 
 class ItemDetailScreen extends StatefulWidget {
   final Map<String, dynamic> item;
@@ -17,7 +14,6 @@ class ItemDetailScreen extends StatefulWidget {
 }
 
 class _ItemDetailScreenState extends State<ItemDetailScreen> {
-  // ... (State variables, initState, and helper methods remain unchanged)
   final Map<String, double> sizePriceModifiers = const {
     'S': 0.00,
     'M': 1.50,
@@ -45,7 +41,6 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
   }
 
   void _addToCart(BuildContext context) {
-    // ... (Add to Cart logic remains unchanged)
     final newItem = CartItem(
       name: itemName,
       size: _selectedSize,
@@ -70,7 +65,6 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
     return Scaffold(
       body: Column(
         children: [
-          // --- Header Image Section (Fixed Height) ---
           Stack(
             children: [
               PlaceholderImage(
@@ -102,15 +96,12 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
             ],
           ),
 
-          // --- Details Section (MAKE THIS SCROLLABLE) ---
           Expanded(
-            // Allows the inner SingleChildScrollView to take available space
             child: SingleChildScrollView(
               padding: const EdgeInsets.all(20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title and Price
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -132,7 +123,6 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                   ),
                   const SizedBox(height: 5),
 
-                  // Description (Using the description from the topPicks map)
                   Text(
                     widget.item['description'] as String,
                     style: const TextStyle(color: Colors.grey, fontSize: 16),
@@ -140,14 +130,12 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
 
                   const SizedBox(height: 30),
 
-                  // Select Portion Size Title
                   const Text(
                     'Select Portion Size',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                   const SizedBox(height: 15),
 
-                  // Size Selector Buttons
                   Row(
                     children: ['S', 'M', 'L'].map((size) {
                       return Padding(
@@ -160,15 +148,12 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                       );
                     }).toList(),
                   ),
-                  const SizedBox(
-                    height: 50,
-                  ), // Add padding here if more content is expected
+                  const SizedBox(height: 50),
                 ],
               ),
             ),
           ),
 
-          // --- Floating 'Add to Cart' Button (Fixed at Bottom) ---
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(20.0),
@@ -207,5 +192,3 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
     );
   }
 }
-
-// ... (SizeButton and other helper classes remain unchanged)

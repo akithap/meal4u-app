@@ -1,5 +1,3 @@
-// size_widgets.dart
-
 import 'package:flutter/material.dart';
 
 class SizeButton extends StatelessWidget {

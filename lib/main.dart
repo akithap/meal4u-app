@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../providers/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-// Import all your screens
 import '../screens/home_screen.dart';
 import '../screens/cart_page.dart';
 import '../screens/checkout_page.dart';

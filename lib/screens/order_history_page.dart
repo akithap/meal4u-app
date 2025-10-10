@@ -59,7 +59,6 @@ class OrderHistoryPage extends StatelessWidget {
   }
 }
 
-// Widget to display a single order card
 class OrderCard extends StatelessWidget {
   final PastOrder order;
 
@@ -76,7 +75,6 @@ class OrderCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Order ID and Date
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -92,14 +90,12 @@ class OrderCard extends StatelessWidget {
             ),
             const Divider(height: 15),
 
-            // Items Summary
             Text(
               'Items: ${order.itemsSummary}',
               style: const TextStyle(fontSize: 14),
             ),
             const SizedBox(height: 10),
 
-            // Total and Reorder Button
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -113,7 +109,6 @@ class OrderCard extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Simulate reorder functionality (pre-fill cart and navigate)
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text('Reordering ${order.itemsSummary}...'),
@@ -122,8 +117,7 @@ class OrderCard extends StatelessWidget {
                     Navigator.pushNamed(context, '/cart');
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:
-                        Colors.black, // Matching the theme's button style
+                    backgroundColor: Colors.black,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 20,
                       vertical: 8,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'cart_page.dart'; // Import to access CartPage.cartItems
+import 'cart_page.dart';
 
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key});
@@ -12,15 +12,10 @@ class _CheckoutPageState extends State<CheckoutPage> {
   final _formKey = GlobalKey<FormState>();
   String _paymentMethod = 'Credit Card';
 
-  // --- New function to handle placing the order ---
   void _placeOrder() {
     if (_formKey.currentState!.validate()) {
-      // 1. Process order logic (simulated)
-
-      // 2. CLEAR THE CART
       CartPage.cartItems.clear();
 
-      // 3. Navigate to confirmation page
       Navigator.pushReplacementNamed(context, '/confirmation');
     }
   }
@@ -41,7 +36,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // --- Delivery Address Section ---
               const Text(
                 'Delivery Address',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -65,7 +59,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
               ),
               const SizedBox(height: 30),
 
-              // --- Payment Method Section ---
               const Text(
                 'Payment Method',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -78,9 +71,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
               const SizedBox(height: 50),
 
-              // "Place Order" Button
               ElevatedButton(
-                // Use the new function here
                 onPressed: _placeOrder,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.black,
@@ -104,8 +95,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
       ),
     );
   }
-
-  // --- Helper Widgets (unchanged) ---
 
   Widget _buildTextFormField({
     required String label,

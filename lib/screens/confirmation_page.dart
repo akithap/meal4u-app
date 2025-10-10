@@ -12,7 +12,6 @@ class ConfirmationPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Confirmation Icon
               const Icon(
                 Icons.check_circle_outline,
                 color: Colors.green,
@@ -20,7 +19,6 @@ class ConfirmationPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              // Title
               const Text(
                 'Order Confirmed!',
                 style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
@@ -28,7 +26,6 @@ class ConfirmationPage extends StatelessWidget {
               ),
               const SizedBox(height: 10),
 
-              // Subtitle/Message
               const Text(
                 'Your meal is being prepared. Thank you for choosing Meal4U!',
                 style: TextStyle(fontSize: 16, color: Colors.grey),
@@ -36,7 +33,6 @@ class ConfirmationPage extends StatelessWidget {
               ),
               const SizedBox(height: 40),
 
-              // Order Summary Card
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -45,7 +41,6 @@ class ConfirmationPage extends StatelessWidget {
                 ),
                 child: Column(
                   children: const [
-                    // Simulated Estimated Time
                     Text(
                       'Estimated Delivery',
                       style: TextStyle(
@@ -63,7 +58,7 @@ class ConfirmationPage extends StatelessWidget {
                       ),
                     ),
                     Divider(height: 30),
-                    // Simulated Total
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -82,13 +77,10 @@ class ConfirmationPage extends StatelessWidget {
               ),
               const SizedBox(height: 40),
 
-              // Action Buttons
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                    // Navigate to a simulated track page
-                  },
+                  onPressed: () {},
                   icon: const Icon(Icons.delivery_dining, color: Colors.white),
                   label: const Text(
                     'TRACK ORDER',

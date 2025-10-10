@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// --- Placeholder for Network Image ---
-// Since you don't have an assets folder, we'll use a NetworkImage
-// or a simple placeholder color container for the images.
 class PlaceholderImage extends StatelessWidget {
   final String imageUrl;
   final double height;
@@ -19,15 +16,12 @@ class PlaceholderImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Using an Image.network with a fallback error builder
-    // The image URLs used in the examples are placeholders.
     return Image.asset(
       imageUrl,
       height: height,
       width: width,
       fit: fit,
       errorBuilder: (context, error, stackTrace) {
-        // Fallback: Use a colored container with a generic icon
         return Container(
           height: height,
           width: width,
@@ -41,7 +35,6 @@ class PlaceholderImage extends StatelessWidget {
   }
 }
 
-// --- ItemCard Widget (for homescreen Top Picks) ---
 class ItemCard extends StatelessWidget {
   final String title;
   final String category;
@@ -65,7 +58,6 @@ class ItemCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Image Area
             ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: PlaceholderImage(
@@ -75,13 +67,13 @@ class ItemCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            // Title
+
             Text(
               title,
               style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               overflow: TextOverflow.ellipsis,
             ),
-            // Category/Tag
+
             Text(
               category,
               style: TextStyle(color: Colors.grey[600], fontSize: 13),

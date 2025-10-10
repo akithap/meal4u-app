@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
-  // Helper method to build consistent ListTile items
   Widget _buildListTile(
     BuildContext context,
     String title,
@@ -19,7 +18,6 @@ class AppDrawer extends StatelessWidget {
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
       ),
       onTap: () {
-        // Close the drawer before navigating
         Navigator.pop(context);
         Navigator.pushNamed(context, routeName);
       },
@@ -28,14 +26,12 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Access the ThemeProvider
     final themeProvider = Provider.of<ThemeProvider>(context);
 
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-          // Header
           const DrawerHeader(
             decoration: BoxDecoration(color: Colors.white),
             child: Text(
@@ -47,7 +43,7 @@ class AppDrawer extends StatelessWidget {
               ),
             ),
           ),
-          // --- Cart Page ---
+
           _buildListTile(
             context,
             'My Cart',
@@ -55,7 +51,6 @@ class AppDrawer extends StatelessWidget {
             '/cart',
           ),
 
-          // Profile
           _buildListTile(
             context,
             'My Profile',
@@ -63,7 +58,6 @@ class AppDrawer extends StatelessWidget {
             '/profile',
           ),
 
-          // Order History
           _buildListTile(
             context,
             'Order History',
@@ -73,7 +67,6 @@ class AppDrawer extends StatelessWidget {
 
           const Divider(),
 
-          // Dark Mode Toggle
           SwitchListTile(
             title: const Text(
               'Dark Mode',

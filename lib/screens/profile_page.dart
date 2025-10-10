@@ -18,7 +18,6 @@ class ProfilePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // --- Profile Picture and Info ---
               const CircleAvatar(
                 radius: 60,
                 backgroundColor: Colors.grey,
@@ -35,7 +34,6 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 40),
 
-              // --- Menu Options ---
               _buildProfileOption(
                 context,
                 icon: Icons.edit_outlined,
@@ -52,9 +50,7 @@ class ProfilePage extends StatelessWidget {
                 context,
                 icon: Icons.favorite_border,
                 title: 'Favorites',
-                onTap: () {
-                  // Navigate to Favorites list
-                },
+                onTap: () {},
               ),
               _buildProfileOption(
                 context,
@@ -64,12 +60,10 @@ class ProfilePage extends StatelessWidget {
               ),
               const SizedBox(height: 40),
 
-              // --- Logout Button ---
               SizedBox(
                 width: double.infinity,
                 child: OutlinedButton.icon(
                   onPressed: () {
-                    // Implement Logout Logic
                     Navigator.pushNamedAndRemoveUntil(
                       context,
                       '/',

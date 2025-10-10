@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Dummy Cart Item Model (already defined)
 class CartItem {
   final String name;
   final String size;
@@ -18,23 +17,16 @@ class CartItem {
 class CartPage extends StatefulWidget {
   const CartPage({super.key});
 
-  // MAKE THE CART DATA STATIC so we can access and modify it globally
-  static List<CartItem> cartItems = [
-    // You can remove these initial samples if you want the cart to start empty
-  ];
+  static List<CartItem> cartItems = [];
 
-  // Helper method to simulate adding an item
   static void addItem(CartItem newItem) {
-    // Simple logic to check if item already exists (based on name and size)
     int index = cartItems.indexWhere(
       (item) => item.name == newItem.name && item.size == newItem.size,
     );
 
     if (index != -1) {
-      // If found, increment quantity
       cartItems[index].quantity += newItem.quantity;
     } else {
-      // If not found, add new item
       cartItems.add(newItem);
     }
   }
@@ -44,7 +36,6 @@ class CartPage extends StatefulWidget {
 }
 
 class _CartPageState extends State<CartPage> {
-  // Now reference the static list from the StatefulWidget
   List<CartItem> get cartItems => CartPage.cartItems;
 
   void _removeItem(int index) {
@@ -58,7 +49,6 @@ class _CartPageState extends State<CartPage> {
       if (cartItems[index].quantity + delta > 0) {
         cartItems[index].quantity += delta;
       } else {
-        // Option to remove item if quantity drops to zero
         _removeItem(index);
       }
     });
@@ -69,9 +59,6 @@ class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
-    // ... (rest of the build method is the same)
-    // The rest of the CartPage code below is unchanged from the original implementation
-
     const double deliveryFee = 3.00;
     final double total = _subtotal + deliveryFee;
 
@@ -84,7 +71,6 @@ class _CartPageState extends State<CartPage> {
       ),
       body: Column(
         children: [
-          // --- Cart Items List ---
           Expanded(
             child: cartItems.isEmpty
                 ? const Center(
@@ -104,7 +90,7 @@ class _CartPageState extends State<CartPage> {
                       final item = cartItems[index];
                       return CartItemTile(
                         item: item,
-                        // Note: These methods still need to call setState to update the UI on this page
+
                         onRemove: () => _removeItem(index),
                         onAdjustQuantity: (delta) =>
                             _adjustQuantity(index, delta),
@@ -113,7 +99,6 @@ class _CartPageState extends State<CartPage> {
                   ),
           ),
 
-          // --- Total Summary and Checkout Button ---
           Container(
             padding: const EdgeInsets.all(20.0),
             decoration: const BoxDecoration(
@@ -123,7 +108,6 @@ class _CartPageState extends State<CartPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Subtotal
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -135,7 +119,7 @@ class _CartPageState extends State<CartPage> {
                   ],
                 ),
                 const SizedBox(height: 5),
-                // Delivery Fee
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -147,7 +131,7 @@ class _CartPageState extends State<CartPage> {
                   ],
                 ),
                 const Divider(height: 20, thickness: 1),
-                // Total
+
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -170,7 +154,6 @@ class _CartPageState extends State<CartPage> {
                 ),
                 const SizedBox(height: 20),
 
-                // "Proceed to Checkout" Button
                 ElevatedButton(
                   onPressed: cartItems.isEmpty
                       ? null
@@ -200,9 +183,7 @@ class _CartPageState extends State<CartPage> {
   }
 }
 
-// Helper Widget for a single item in the cart (CartItemTile, _QuantityButton)
 class CartItemTile extends StatelessWidget {
-  // ... (unchanged code)
   final CartItem item;
   final VoidCallback onRemove;
   final Function(int) onAdjustQuantity;
@@ -221,7 +202,6 @@ class CartItemTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Item Image Placeholder
           Container(
             width: 80,
             height: 80,
@@ -235,7 +215,6 @@ class CartItemTile extends StatelessWidget {
           ),
           const SizedBox(width: 15),
 
-          // Item Details
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -262,10 +241,8 @@ class CartItemTile extends StatelessWidget {
             ),
           ),
 
-          // Quantity and Remove Button
           Column(
             children: [
-              // Quantity Adjuster
               Row(
                 children: [
                   _QuantityButton(
@@ -289,7 +266,7 @@ class CartItemTile extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 5),
-              // Remove Button
+
               GestureDetector(
                 onTap: onRemove,
                 child: const Text(
