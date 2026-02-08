@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
-import '../screens/home_screen.dart';
+import '../screens/main_screen.dart';
 import '../screens/auth/login_screen.dart';
 
 class AuthWrapper extends StatelessWidget {
@@ -16,7 +16,7 @@ class AuthWrapper extends StatelessWidget {
         //     body: Center(child: CircularProgressIndicator()),
         //   );
         // }
-        return auth.isAuthenticated ? const HomeScreen() : const LoginScreen();
+        return auth.isAuthenticated ? const MainScreen() : const LoginScreen();
       },
     );
   }

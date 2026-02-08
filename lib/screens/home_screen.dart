@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../widgets/app_drawer.dart';
 import '../widgets/itemcard.dart';
 import '../providers/meals_provider.dart';
 import 'item_detail_screen.dart';
@@ -24,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: const AppDrawer(),
+      // drawer: const AppDrawer(), // Removed drawer as we use BottomNav
       appBar: AppBar(
         title: const Text(
           'Meal4U',

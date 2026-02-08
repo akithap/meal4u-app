@@ -7,9 +7,12 @@ class AuthProvider with ChangeNotifier {
   String? _token;
   final ApiService _apiService = ApiService();
 
+  Map<String, dynamic>? _user;
+
   bool get isAuthenticated => _isAuthenticated;
   bool get isLoading => _isLoading;
   String? get token => _token;
+  Map<String, dynamic>? get user => _user;
 
   Future<void> login(String email, String password) async {
     _isLoading = true;
@@ -19,8 +22,11 @@ class AuthProvider with ChangeNotifier {
       final data = await _apiService.login(email, password);
       _token = data['access_token'];
       _isAuthenticated = true;
+      _user = await _apiService.getUserProfile(); // Fetch profile
     } catch (e) {
       _isAuthenticated = false;
+      _token = null;
+      _user = null;
       rethrow;
     } finally {
       _isLoading = false;
@@ -34,6 +40,7 @@ class AuthProvider with ChangeNotifier {
 
     try {
       await _apiService.register(email, password, fullName);
+      // Optional: Auto-login after register? For now, let user login manually.
     } catch (e) {
       rethrow;
     } finally {
@@ -50,8 +57,18 @@ class AuthProvider with ChangeNotifier {
     if (token != null) {
       _token = token;
       _isAuthenticated = true;
+      try {
+        _user = await _apiService.getUserProfile();
+      } catch (e) {
+        // Token might be invalid or expired
+        _isAuthenticated = false;
+        _token = null;
+        _user = null;
+        await _apiService.logout();
+      }
     } else {
       _isAuthenticated = false;
+      _user = null;
     }
 
     _isLoading = false;
@@ -61,6 +78,7 @@ class AuthProvider with ChangeNotifier {
   Future<void> logout() async {
     await _apiService.logout();
     _token = null;
+    _user = null;
     _isAuthenticated = false;
     notifyListeners();
   }

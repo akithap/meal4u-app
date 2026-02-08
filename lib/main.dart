@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:ui';
 import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
         scaffoldBackgroundColor: Colors.white,
+        textTheme: GoogleFonts.robotoTextTheme(Theme.of(context).textTheme),
         appBarTheme: const AppBarTheme(
           backgroundColor: Colors.white,
           foregroundColor: Colors.black,
@@ -65,6 +67,7 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: ThemeData.dark().copyWith(
         primaryColor: Colors.deepOrange,
+        textTheme: GoogleFonts.robotoTextTheme(ThemeData.dark().textTheme),
         floatingActionButtonTheme: const FloatingActionButtonThemeData(
           backgroundColor: Colors.deepOrange,
         ),

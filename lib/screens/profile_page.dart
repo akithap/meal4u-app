@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
+import '../providers/theme_provider.dart';
+import '../providers/auth_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -90,13 +93,28 @@ class _ProfilePageState extends State<ProfilePage> {
                 style: TextStyle(fontSize: 12, color: Colors.grey),
               ),
               const SizedBox(height: 15),
-              const Text(
-                'Alex Johnson',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-              ),
-              const Text(
-                'alex.johnson@example.com',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+              Consumer<AuthProvider>(
+                builder: (context, auth, _) {
+                  final user = auth.user;
+                  return Column(
+                    children: [
+                      Text(
+                        user?['full_name'] ?? 'User',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        user?['email'] ?? 'No email',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
               const SizedBox(height: 40),
 
@@ -112,6 +130,40 @@ class _ProfilePageState extends State<ProfilePage> {
                 title: 'Order History',
                 onTap: () => Navigator.pushNamed(context, '/orderHistory'),
               ),
+
+              // Theme Changer
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Consumer<ThemeProvider>(
+                  builder: (context, themeProvider, child) {
+                    return SwitchListTile(
+                      title: const Text(
+                        'Dark Mode',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      secondary: Icon(
+                        themeProvider.themeMode == ThemeMode.dark
+                            ? Icons.dark_mode
+                            : Icons.light_mode,
+                        color: Colors.black,
+                        size: 28,
+                      ),
+                      value: themeProvider.themeMode == ThemeMode.dark,
+                      onChanged: (bool value) {
+                        themeProvider.toggleTheme(value);
+                      },
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: BorderSide(color: Colors.grey[200]!),
+                      ),
+                    );
+                  },
+                ),
+              ),
+
               _buildProfileOption(
                 context,
                 icon: Icons.favorite_border,

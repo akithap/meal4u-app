@@ -17,8 +17,12 @@ class CartProvider with ChangeNotifier {
   }
 
   Future<void> _loadCartFromDB() async {
-    _items = await DatabaseHelper().getItems();
-    notifyListeners();
+    try {
+      _items = await DatabaseHelper().getItems();
+      notifyListeners();
+    } catch (e) {
+      debugPrint("Error loading cart from DB: $e");
+    }
   }
 
   Future<void> addToCart(CartItem newItem) async {

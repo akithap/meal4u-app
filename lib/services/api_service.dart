@@ -117,4 +117,25 @@ class ApiService {
       throw Exception('Failed to load orders: ${response.body}');
     }
   }
+
+  Future<Map<String, dynamic>> getUserProfile() async {
+    final token = await getToken();
+    if (token == null) {
+      throw Exception('User not authenticated');
+    }
+
+    final response = await http.get(
+      Uri.parse('$baseUrl/users/me'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return json.decode(response.body);
+    } else {
+      throw Exception('Failed to load user profile: ${response.body}');
+    }
+  }
 }
