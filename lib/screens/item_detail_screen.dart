@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'cart_page.dart';
+import 'package:provider/provider.dart';
+import '../providers/cart_provider.dart';
+import '../models/cart_item.dart';
 import '../widgets/itemcard.dart';
 import '../widgets/size_buttons.dart';
 
@@ -28,8 +29,8 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
   @override
   void initState() {
     super.initState();
-    itemName = widget.item['title'] as String;
-    basePrice = widget.item['price'] as double;
+    itemName = widget.item['title'] as String? ?? 'Unknown';
+    basePrice = (widget.item['price'] as num?)?.toDouble() ?? 0.0;
     _currentPrice = basePrice + sizePriceModifiers[_selectedSize]!;
   }
 
@@ -42,16 +43,20 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
 
   void _addToCart(BuildContext context) {
     final newItem = CartItem(
+      id: widget.item['id'].toString(), // Ensure ID is string
       name: itemName,
       size: _selectedSize,
       price: _currentPrice,
+      imageUrl: widget.item['image_url'] ?? '', // Handle missing image_url
       quantity: 1,
     );
-    CartPage.addItem(newItem);
+
+    Provider.of<CartProvider>(context, listen: false).addToCart(newItem);
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          '$itemName (${_selectedSize}) added to cart for \$${_currentPrice.toStringAsFixed(2)}!',
+          '$itemName ($_selectedSize) added to cart for \$${_currentPrice.toStringAsFixed(2)}!',
         ),
         duration: const Duration(seconds: 2),
         backgroundColor: Colors.green,
@@ -68,7 +73,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           Stack(
             children: [
               PlaceholderImage(
-                imageUrl: widget.item['imageUrl'],
+                imageUrl: widget.item['image_url'] ?? '',
                 height: 350,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -124,7 +129,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                   const SizedBox(height: 5),
 
                   Text(
-                    widget.item['description'] as String,
+                    widget.item['description'] as String? ?? 'No description',
                     style: const TextStyle(color: Colors.grey, fontSize: 16),
                   ),
 
