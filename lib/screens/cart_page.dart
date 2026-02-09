@@ -61,11 +61,18 @@ class CartPage extends StatelessWidget {
               ),
               Container(
                 padding: const EdgeInsets.all(20.0),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    top: BorderSide(color: Colors.black12, width: 1),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).cardColor,
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(20),
                   ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.1),
+                      blurRadius: 10,
+                      offset: const Offset(0, -5),
+                    ),
+                  ],
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,10 +80,13 @@ class CartPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text('Subtotal:', style: TextStyle(fontSize: 16)),
+                        Text(
+                          'Subtotal:',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
                         Text(
                           '\$${subtotal.toStringAsFixed(2)}',
-                          style: const TextStyle(fontSize: 16),
+                          style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ],
                     ),
@@ -85,13 +95,13 @@ class CartPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                          Text(
                             'Delivery Fee:',
-                            style: TextStyle(fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                           Text(
                             '\$${deliveryFee.toStringAsFixed(2)}',
-                            style: const TextStyle(fontSize: 16),
+                            style: Theme.of(context).textTheme.bodyLarge,
                           ),
                         ],
                       ),
@@ -100,20 +110,18 @@ class CartPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text(
+                        Text(
                           'Total:',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           '\$${total.toStringAsFixed(2)}',
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.deepOrange,
-                          ),
+                          style: Theme.of(context).textTheme.titleLarge
+                              ?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.deepOrange,
+                              ),
                         ),
                       ],
                     ),
@@ -123,16 +131,17 @@ class CartPage extends StatelessWidget {
                           ? null
                           : () => Navigator.pushNamed(context, '/checkout'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor:
+                            Colors.deepOrange, // Consistent with brand
+                        foregroundColor: Colors.white,
                         minimumSize: const Size(double.infinity, 60),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(12.0),
                         ),
                       ),
                       child: const Text(
                         'PROCEED TO CHECKOUT',
                         style: TextStyle(
-                          color: Colors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                         ),
@@ -180,8 +189,13 @@ class CartItemTile extends StatelessWidget {
                         ? Image.network(item.imageUrl, fit: BoxFit.cover)
                         : Image.asset(item.imageUrl, fit: BoxFit.cover))
                   : Container(
-                      color: Colors.grey[200],
-                      child: const Icon(Icons.restaurant, color: Colors.grey),
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.surfaceContainerHighest,
+                      child: Icon(
+                        Icons.restaurant,
+                        color: Theme.of(context).iconTheme.color,
+                      ),
                     ),
             ),
           ),
@@ -253,15 +267,20 @@ class _QuantityButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return GestureDetector(
       onTap: onPressed,
       child: Container(
         padding: const EdgeInsets.all(4),
         decoration: BoxDecoration(
-          color: Colors.grey[200],
+          color: isDarkMode ? Colors.grey[800] : Colors.grey[200],
           borderRadius: BorderRadius.circular(5),
         ),
-        child: Icon(icon, size: 18),
+        child: Icon(
+          icon,
+          size: 18,
+          color: isDarkMode ? Colors.white : Colors.black,
+        ),
       ),
     );
   }

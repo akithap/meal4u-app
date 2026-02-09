@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import '../models/cart_item.dart';
@@ -11,12 +12,19 @@ class DatabaseHelper {
   DatabaseHelper._internal();
 
   Future<Database> get database async {
+    if (kIsWeb) {
+      throw UnsupportedError("SQLite is not supported on Web");
+    }
     if (_database != null) return _database!;
     _database = await _initDB();
     return _database!;
   }
 
   Future<Database> _initDB() async {
+    // Platform check already handled in getter, but good safely
+    if (kIsWeb) {
+      throw UnsupportedError("SQLite is not supported on Web");
+    }
     String path = join(await getDatabasesPath(), 'meal4u_cart.db');
     return await openDatabase(
       path,
@@ -37,6 +45,7 @@ class DatabaseHelper {
   }
 
   Future<void> insertItem(CartItem item) async {
+    if (kIsWeb) return;
     final db = await database;
     await db.insert(
       'cart_items',
@@ -46,6 +55,7 @@ class DatabaseHelper {
   }
 
   Future<List<CartItem>> getItems() async {
+    if (kIsWeb) return [];
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('cart_items');
     return List.generate(maps.length, (i) {
@@ -54,6 +64,7 @@ class DatabaseHelper {
   }
 
   Future<void> updateItem(CartItem item) async {
+    if (kIsWeb) return;
     final db = await database;
     await db.update(
       'cart_items',
@@ -64,11 +75,13 @@ class DatabaseHelper {
   }
 
   Future<void> deleteItem(String id) async {
+    if (kIsWeb) return;
     final db = await database;
     await db.delete('cart_items', where: 'id = ?', whereArgs: [id]);
   }
 
   Future<void> clearCart() async {
+    if (kIsWeb) return;
     final db = await database;
     await db.delete('cart_items');
   }

@@ -148,7 +148,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         themeProvider.themeMode == ThemeMode.dark
                             ? Icons.dark_mode
                             : Icons.light_mode,
-                        color: Colors.black,
+                        color: Theme.of(context).iconTheme.color,
                         size: 28,
                       ),
                       value: themeProvider.themeMode == ThemeMode.dark,
@@ -157,7 +157,11 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
-                        side: BorderSide(color: Colors.grey[200]!),
+                        side: BorderSide(
+                          color: Theme.of(
+                            context,
+                          ).dividerColor.withOpacity(0.1),
+                        ),
                       ),
                     );
                   },
@@ -222,16 +226,20 @@ class _ProfilePageState extends State<ProfilePage> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: ListTile(
-        leading: Icon(icon, color: Colors.black, size: 28),
+        leading: Icon(icon, color: Theme.of(context).iconTheme.color, size: 28),
         title: Text(
           title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+          style: Theme.of(
+            context,
+          ).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500),
         ),
         trailing: const Icon(Icons.chevron_right, color: Colors.grey),
         onTap: onTap,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
-          side: BorderSide(color: Colors.grey[200]!),
+          side: BorderSide(
+            color: Theme.of(context).dividerColor.withOpacity(0.1),
+          ),
         ),
       ),
     );

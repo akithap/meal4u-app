@@ -22,13 +22,14 @@ class PlaceholderImage extends StatelessWidget {
         height: height,
         width: width,
         fit: fit,
-        errorBuilder: (context, error, stackTrace) => _buildPlaceholder(),
+        errorBuilder: (context, error, stackTrace) =>
+            _buildPlaceholder(context),
         loadingBuilder: (context, child, loadingProgress) {
           if (loadingProgress == null) return child;
           return Container(
             height: height,
             width: width,
-            color: Colors.grey[200],
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
             child: const Center(
               child: CircularProgressIndicator(strokeWidth: 2),
             ),
@@ -41,18 +42,23 @@ class PlaceholderImage extends StatelessWidget {
         height: height,
         width: width,
         fit: fit,
-        errorBuilder: (context, error, stackTrace) => _buildPlaceholder(),
+        errorBuilder: (context, error, stackTrace) =>
+            _buildPlaceholder(context),
       );
     }
   }
 
-  Widget _buildPlaceholder() {
+  Widget _buildPlaceholder(BuildContext context) {
     return Container(
       height: height,
       width: width,
-      color: Colors.grey[300],
-      child: const Center(
-        child: Icon(Icons.broken_image, color: Colors.grey, size: 30),
+      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+      child: Center(
+        child: Icon(
+          Icons.broken_image,
+          color: Theme.of(context).iconTheme.color,
+          size: 30,
+        ),
       ),
     );
   }
@@ -82,7 +88,7 @@ class ItemCard extends StatelessWidget {
         width: 180,
         margin: const EdgeInsets.only(right: 16),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).cardColor,
           borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
@@ -112,25 +118,20 @@ class ItemCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.bold,
-                      fontSize: 16,
                     ),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    category,
-                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                  ),
+                  Text(category, style: Theme.of(context).textTheme.bodySmall),
                   const SizedBox(height: 6),
                   Text(
                     '\$${price.toStringAsFixed(2)}',
-                    style: const TextStyle(
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
                       color: Colors.deepOrange,
                       fontWeight: FontWeight.bold,
-                      fontSize: 14,
                     ),
                   ),
                 ],
